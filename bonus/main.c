@@ -59,6 +59,7 @@ void    init_data(t_data *data, char *map)
 		printf("bad file disncriptor :)\n"), exit (1);
 	data->count = count_line(map);
 	data->map = get_map(data->fd, data->count);
+	check_file(data->map, data);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "CUB3D");
 	init_textures(data);

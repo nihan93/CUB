@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-ela <sben-ela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nbarakat <nbarakat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 15:46:10 by sben-ela          #+#    #+#             */
-/*   Updated: 2023/05/20 15:07:21 by sben-ela         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:45:07 by nbarakat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ typedef struct data
 	double		s_delta_y;
 	double		delta_x;
 	double		delta_y;
+	int			direction;
+	char		**paths;
 }   t_data;
 
 typedef struct dist
@@ -180,5 +182,15 @@ int			count_line(char *av);
 char		**get_map(int fd, int count);
 int			handle_mouse(int x, int y, t_data *data);
 int			mlx_mouse_move(void *win_ptr, int x, int y);
+
+/*****************************/
+void 		check_args(int ac, char    *av[]);
+void 		check_file(char  **map, t_data *data);
+char		**ft_split(char const *s, char c);
+int			ft_atoi(const char	*str);
+// void set_data(t_data    *data);
+int			ft_strncmp(const char	*str1, const char	*str2, size_t	n);
+int    		get_index_(char  *s, char    **map);
+char		*ft_strtrim(char const	*s1, char const	*set);
 
 # endif
