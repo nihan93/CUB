@@ -93,3 +93,9 @@ int	main(int ac, char **av)
 	mlx_loop(data->mlx);
 	return (0);
 }
+// first : 17 - 2 = 14
+// last  : 17 + 2 = 19
+// 19 - 18 = 1
+// first x w lastt x 
+// first y w lastt y
+//            1

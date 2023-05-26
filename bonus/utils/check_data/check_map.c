@@ -6,7 +6,7 @@
 /*   By: nbarakat <nbarakat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:24:13 by nbarakat          #+#    #+#             */
-/*   Updated: 2023/05/25 18:58:29 by nbarakat         ###   ########.fr       */
+/*   Updated: 2023/05/26 21:00:08 by nbarakat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,21 +396,30 @@ void fill_space(char    **copy, int largest, char   **map, int index)
     copy[i] = 0;
 }
 
+void	ft_strcpy(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+}
+
 void copy_init(char **copy, char    **map, int index, int largest)
 {
     int i;
-    int j;
+    int size;
 
     i = 0;
+    size = getmapsize(map, index) - 1;
     fill_space(copy, largest, map, index);
-    while (map[index])
+    while (i < size)
     {
-        j = 0;
-        while (map[index][j])
-        {
-            copy[i][j] = map[index][j];
-            j++;
-        }
+        ft_strcpy(copy[i], map[index]);
         i++;
         index++;
     }
@@ -448,19 +457,6 @@ void set_textures(char  **s)
     s[2] = "WE";
     s[3] = "EA";
     s[4] = NULL;
-}
-
-void	ft_strcpy(char *dst, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
 }
 
 void set_paths(t_data   *data, char **map)
@@ -566,7 +562,7 @@ void check_doors(char   **map)
         }
         i++;
     }
-    printf("Doors needed in map :(\n");   //while 1
+    printf("Doors needed in map :(\n"), exit(1);
 }
 
 void check_file(char  **map, t_data *data)

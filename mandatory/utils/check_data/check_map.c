@@ -6,7 +6,7 @@
 /*   By: nbarakat <nbarakat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:24:13 by nbarakat          #+#    #+#             */
-/*   Updated: 2023/05/23 22:40:55 by nbarakat         ###   ########.fr       */
+/*   Updated: 2023/05/26 20:56:02 by nbarakat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,22 +395,30 @@ void fill_space(char    **copy, int largest, char   **map, int index)
     }
     copy[i] = 0;
 }
+void	ft_strcpy(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+}
 
 void copy_init(char **copy, char    **map, int index, int largest)
 {
     int i;
-    int j;
+    int size;
 
     i = 0;
+    size = getmapsize(map, index) - 1;
     fill_space(copy, largest, map, index);
-    while (map[index])
+    while (i < size)
     {
-        j = 0;
-        while (map[index][j])
-        {
-            copy[i][j] = map[index][j];
-            j++;
-        }
+        ft_strcpy(copy[i], map[index]);
         i++;
         index++;
     }
@@ -445,23 +453,11 @@ void set_textures(char  **s)
 {
     s[0] = "NO";
     s[1] = "SO";
-    s[2] = "WE";
-    s[3] = "EA";
+    s[2] = "EA";
+    s[3] = "WE";
     s[4] = NULL;
 }
 
-void	ft_strcpy(char *dst, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-}
 
 void set_paths(t_data   *data, char **map)
 {
@@ -507,6 +503,7 @@ void check_walls(int index, char    **map, t_data *data)
 {
     check_first(map, index);
     check_last(map, index);
+
     check_sides(map, index);
     check_corners(map, index, data);
 }
@@ -518,17 +515,18 @@ void check_newline(char **map, int  index)
     flag = 0;
     while (map[index])
     {
-        if (map[index][0] == 0)
+        if (map[index][0] == 0 || is_empty(map[index]))
         {
             flag = 1;
             break ;
-        }   
+        }
+
         index++;
     }
-    if (flag)
+    if (flag == 1)
     {
         while (map[index])
-        {
+        {   
             if (!is_empty(map[index]))
                 printf("Map content can't  have  a newline\n"), exit(1);
             index++;
@@ -544,6 +542,7 @@ void check_map(char **map, t_data *data)
     index = get_index(map);
     fill_characters(characters);
     check_characters(characters, map, index);
+
     check_newline(map, index);
     check_walls(index, map, data);
 }
@@ -553,7 +552,5 @@ void check_file(char  **map, t_data *data)
     check_elements(map);
     check_colors(map, data);
     check_map(map, data);
-    // printf("MAP IS READY\n");
-
-    // exit (1);
 }
+
