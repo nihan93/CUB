@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbarakat <nbarakat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sben-ela <sben-ela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 10:10:40 by sben-ela          #+#    #+#             */
-/*   Updated: 2023/05/25 19:40:17 by nbarakat         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:23:31 by sben-ela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void    draw_minimap(t_data *data)
 	int y;
 
 	y = 0;
-	// 
 	while(data->map[y])
 	{
 		x = 0;
@@ -121,6 +120,10 @@ void    draw_minimap(t_data *data)
 		{
 			if (data->map[y][x] == '1')
 				ft_putcube(data, x, y, BLACK);
+			else if (data->map[y][x] == 'D')
+				ft_putcube(data, x, y, RED);
+			else if (data->map[y][x] == 'O')
+				ft_putcube(data, x, y, GREEN);
 			else
 				ft_putcube(data, x, y, YELLOW);
 			x++;

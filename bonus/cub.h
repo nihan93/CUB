@@ -6,7 +6,7 @@
 /*   By: nbarakat <nbarakat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 15:46:10 by sben-ela          #+#    #+#             */
-/*   Updated: 2023/05/25 20:19:32 by nbarakat         ###   ########.fr       */
+/*   Updated: 2023/05/28 00:16:28 by nbarakat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 # define	RELOAD	15
 # define	OPEN	49
 
-#include	<signal.h>
-#include	<pthread.h>
+# include	<signal.h>
+# include	<pthread.h>
 # include	<stdlib.h>
 # include	<unistd.h>
 # include	<stdio.h>
@@ -94,6 +94,7 @@ typedef struct s_player
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	int		direction;
 }   t_player;
 
 typedef	struct s_hooks
@@ -106,21 +107,21 @@ typedef	struct s_hooks
 typedef struct data
 {
 	t_hooks		hooks;
-    t_player    player;
-    t_img       img; 
-    t_img       texture[4];
+	t_player    player;
+	t_img       img; 
+	t_img       texture[4];
 	t_img		sprite;
 	t_img		door;
 	t_img		CEILING_texture;
-    void 	    *mlx;
-    void	    *win;
+	void 	    *mlx;
+	void	    *win;
 	void		*fire;
-    char	    **map;
+	char	    **map;
 	void		*weapon[85];
 	int			compass;
 	double		speed;
-    int		    count;
-    int         *position;
+	int		    count;
+	int         *position;
 	int			floor;
 	int			ceiling;
 	int			fd;
@@ -159,6 +160,7 @@ typedef struct dist
 	int		direction;
 } t_dist;
 
+void		rotate(double *x_prime, double *y_prime, double angle);
 void		draw_line(t_data *data, double ray_x, double ray_y, double len);
 void		ft_putplayer(t_data *data, double x, double y, int color);
 void    	ft_putcube(t_data *data, int x, int y, int color);
@@ -184,13 +186,28 @@ int			handle_mouse(int x, int y, t_data *data);
 int			mlx_mouse_move(void *win_ptr, int x, int y);
 
 /*****************************/
-void 		check_args(int ac, char    *av[]);
-void 		check_file(char  **map, t_data *data);
+void		error(void);
+void		check_args(int ac, char *av[]);
+void		check_file(char **map, t_data *data);
 char		**ft_split(char const *s, char c);
 int			ft_atoi(const char	*str);
-// void set_data(t_data    *data);
 int			ft_strncmp(const char	*str1, const char	*str2, size_t	n);
-int    		get_index_(char  *s, char    **map);
+int			get_index_(char *s, char **map);
 char		*ft_strtrim(char const	*s1, char const	*set);
-
+int			is_empty(char *s);
+int			is_map_line(char *s);
+void		double_free(char **s);
+int			getmapsize(char **map, int index);
+void		ft_strcpy(char *dst, const char *src);
+void		check_characters(int *characters, char **map, int i);
+void		check_colors(char **map, t_data *data);
+void		check_walls(int index, char **map, t_data *data);
+void		check_corners(char **map, int index, t_data *data);
+void		copy_init(char **copy, char **map, int index, int largest);
+int			get_largest(char **map, int index);
+void		fill_characters(int *characters);
+void		fill_space(char **copy, int largest, char **map, int index);
+int			get_index(char **map);
+void		check_elements(char **map);
+void		check_doors(char   **map);
 # endif
