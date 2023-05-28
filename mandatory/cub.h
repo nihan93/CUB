@@ -6,7 +6,7 @@
 /*   By: nbarakat <nbarakat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:37:10 by sben-ela          #+#    #+#             */
-/*   Updated: 2023/05/28 00:00:56 by nbarakat         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:03:53 by nbarakat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct data
 	int			direction;
 	char		**paths;
 	char		**new_map;
+	int			size;
 }	t_data;
 
 typedef struct dist
@@ -175,9 +176,7 @@ char		**get_map(int fd, int count);
 void		draw_rays(t_data *data);
 void		draw_line(t_data *data, double ray_x, double ray_y, double len);
 void		ft_destroy(t_data *data);
-
-/**************parsing************/
-
+/*****************************/
 void		error(void);
 void		check_args(int ac, char *av[]);
 void		check_file(char **map, t_data *data);

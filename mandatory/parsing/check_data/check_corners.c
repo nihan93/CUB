@@ -6,7 +6,7 @@
 /*   By: nbarakat <nbarakat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 23:29:55 by nbarakat          #+#    #+#             */
-/*   Updated: 2023/05/27 23:32:44 by nbarakat         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:06:11 by nbarakat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,12 @@ void	set_paths(t_data *data, char **map)
 
 void	check_corners(char **map, int index, t_data *data)
 {
-	int		size;
 	char	**copy;
 	int		largest;
 
-	size = getmapsize(map, index);
+	data->size = getmapsize(map, index);
 	largest = get_largest(map, index);
-	copy = malloc(size * sizeof(char *));
+	copy = malloc(data->size * sizeof(char *));
 	copy_init(copy, map, index, largest);
 	corners(copy);
 	set_paths(data, map);
